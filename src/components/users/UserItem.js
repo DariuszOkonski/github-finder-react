@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 
 class UserItem extends Component {
-  state = {
-    id: 'id',
-    login: 'mojombo',
-    avatar_url: 'https://avatars.githubusercontent.com/u/1?v=4',
-    html_url: 'https://github.com/mojombo',
-  };
-
   render() {
-    const { avatar_url, login, html_url } = this.state;
+    const { avatar_url, login, html_url } = this.props.user;
 
     return (
       <div className='card text-center'>
@@ -21,7 +14,12 @@ class UserItem extends Component {
         />
         <h3>{login}</h3>
         <div>
-          <a href={html_url} className='btn btn-dark btn-sm my-1'>
+          <a
+            href={html_url}
+            className='btn btn-dark btn-sm my-1'
+            target='_blank'
+            rel='noreferrer'
+          >
             More
           </a>
         </div>
