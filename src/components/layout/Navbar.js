@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = ({ title, icon }) => {
   return (
@@ -7,6 +8,14 @@ const Navbar = ({ title, icon }) => {
       <h1>
         <i className={icon}></i> {title}
       </h1>
+      <ul>
+        <li>
+          <NavLink to='/'>Home</NavLink>
+        </li>
+        <li>
+          <NavLink to='/about'>About</NavLink>
+        </li>
+      </ul>
     </nav>
   );
 };
