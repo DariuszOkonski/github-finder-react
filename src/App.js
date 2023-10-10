@@ -7,10 +7,12 @@ import './App.css';
 import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
+import WrappedUser from './components/users/WrappedUser';
 
 class App extends Component {
   state = {
     users: [],
+    user: {},
     loading: false,
     alert: null,
   };
@@ -26,6 +28,18 @@ class App extends Component {
 
     this.setState({
       users: res.data.items,
+      loading: false,
+    });
+  };
+
+  getUser = async (username) => {
+    console.log('getUser: ', username);
+    this.setState({ loading: true });
+
+    const res = await axios.get(`https://api.github.com/users/${username}`);
+
+    this.setState({
+      user: res.data,
       loading: false,
     });
   };
@@ -53,7 +67,7 @@ class App extends Component {
   };
 
   render() {
-    const { users, loading } = this.state;
+    const { users, loading, user } = this.state;
 
     return (
       <BrowserRouter>
@@ -77,6 +91,16 @@ class App extends Component {
                 }
               />
               <Route path='/about' element={<About />} />
+              <Route
+                path='/user/:login'
+                element={
+                  <WrappedUser
+                    user={user}
+                    loading={loading}
+                    getUser={this.getUser}
+                  />
+                }
+              />
             </Routes>
           </div>
         </div>
