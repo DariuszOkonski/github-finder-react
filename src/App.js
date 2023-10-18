@@ -8,6 +8,7 @@ import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import User from './components/users/User';
+import GithubState from './components/context/github/GithubState';
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -63,43 +64,45 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <div className='App'>
-        <Navbar />
-        <div className='container'>
-          <Alert alert={alert} />
-          <Routes>
-            <Route
-              path='/'
-              element={
-                <Fragment>
-                  <Search
-                    searchUsers={searchUsers}
-                    clearUsers={clearUsers}
-                    showClear={!!users.length}
-                    setAlert={showAlert}
+    <GithubState>
+      <BrowserRouter>
+        <div className='App'>
+          <Navbar />
+          <div className='container'>
+            <Alert alert={alert} />
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <Fragment>
+                    <Search
+                      searchUsers={searchUsers}
+                      clearUsers={clearUsers}
+                      showClear={!!users.length}
+                      setAlert={showAlert}
+                    />
+                    <Users loading={loading} users={users} />
+                  </Fragment>
+                }
+              />
+              <Route path='/about' element={<About />} />
+              <Route
+                path='/user/:login'
+                element={
+                  <User
+                    user={user}
+                    repos={repos}
+                    loading={loading}
+                    getUser={getUser}
+                    getUserRepos={getUserRepos}
                   />
-                  <Users loading={loading} users={users} />
-                </Fragment>
-              }
-            />
-            <Route path='/about' element={<About />} />
-            <Route
-              path='/user/:login'
-              element={
-                <User
-                  user={user}
-                  repos={repos}
-                  loading={loading}
-                  getUser={getUser}
-                  getUserRepos={getUserRepos}
-                />
-              }
-            />
-          </Routes>
+                }
+              />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </GithubState>
   );
 };
 
