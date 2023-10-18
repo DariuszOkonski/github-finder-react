@@ -1,16 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { Link, useParams } from 'react-router-dom';
 import Repos from '../repos/Repos';
 
-const User = (props) => {
+const User = ({ user, loading, repos, getUser, getUserRepos }) => {
   const { login } = useParams();
 
   useEffect(() => {
-    props.getUser(login);
-    props.getUserRepos(login);
+    getUser(login);
+    getUserRepos(login);
+    // eslint-disable-next-line
   }, []);
 
   const {
@@ -26,8 +26,7 @@ const User = (props) => {
     public_gists,
     company,
     hirable,
-  } = props.user;
-  const { loading, repos } = props;
+  } = user;
 
   if (loading) return <Spinner />;
 
