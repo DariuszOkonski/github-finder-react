@@ -40,9 +40,6 @@ const GithubState = (props) => {
     );
 
     dispatch({ type: GET_USER, payload: res.data });
-
-    // setUser(res.data);
-    // setLoading(false);
   };
 
   // Get Repos
