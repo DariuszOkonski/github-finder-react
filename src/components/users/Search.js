@@ -20,8 +20,6 @@ const Search = (props) => {
     }
   };
 
-  const { showClear, clearUsers } = props;
-
   return (
     <div>
       <form className='form' onSubmit={onSubmit}>
@@ -38,8 +36,11 @@ const Search = (props) => {
           className='btn btn-dark btn-block'
         />
       </form>
-      {showClear && (
-        <button onClick={clearUsers} className='btn btn-light btn-block'>
+      {githubContext.users.length > 0 && (
+        <button
+          onClick={githubContext.clearUsers}
+          className='btn btn-light btn-block'
+        >
           Clear
         </button>
       )}
@@ -48,9 +49,6 @@ const Search = (props) => {
 };
 
 Search.propTypes = {
-  // searchUsers: PropTypes.func.isRequired,
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired,
 };
 
